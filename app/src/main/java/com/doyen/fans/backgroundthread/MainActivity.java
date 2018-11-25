@@ -28,16 +28,27 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void startThread(View view){
-        for (int i =0; i<10; i++){
-            Log.d(TAG, "startThread: " + i);
-           // Thread.sleep(1000);
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        ExampleThread thread = new ExampleThread(10);
+        thread.run();
+    }
+
+    class ExampleThread extends Thread {
+        private int seconds;
+
+        ExampleThread(int seconds){
+            this.seconds = seconds;
+        }
+
+        @Override
+        public void run() {
+            for (int i = 0; i<seconds; i++){
+                Log.d(TAG, "startThread: " + i);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
-        
     }
-    
 }
