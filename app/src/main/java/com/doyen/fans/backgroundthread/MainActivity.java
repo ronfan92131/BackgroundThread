@@ -1,6 +1,7 @@
 package com.doyen.fans.backgroundthread;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DialogTitle;
@@ -10,7 +11,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity{
     private static final String TAG = "MainActivity";
-    
+    private Handler mainHandler = new Handler();
     private Button btnStart;
 
     @Override
@@ -65,7 +66,12 @@ public class MainActivity extends AppCompatActivity{
         public void run() {
             for (int i = 0; i<seconds; i++){
                 if(i == 5){
-                    btnStart.setText("50%");
+                    mainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            btnStart.setText("50%");
+                        }
+                    });
                 }
                 Log.d(TAG, "startThread: " + i);
                 try {
