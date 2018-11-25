@@ -64,6 +64,9 @@ public class MainActivity extends AppCompatActivity{
         @Override
         public void run() {
             for (int i = 0; i<seconds; i++){
+                if(i == 5){
+                    btnStart.setText("50%");
+                }
                 Log.d(TAG, "startThread: " + i);
                 try {
                     Thread.sleep(1000);
