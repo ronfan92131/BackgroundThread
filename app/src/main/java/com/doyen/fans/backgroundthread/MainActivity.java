@@ -28,8 +28,12 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void startThread(View view){
-        ExampleThread thread = new ExampleThread(10);
-        thread.run();
+
+        ExampleRunnable runnable = new ExampleRunnable(10);
+        new Thread(runnable).start();
+
+        //ExampleThread thread = new ExampleThread(10);
+        //thread.run();
     }
 
     class ExampleThread extends Thread {
@@ -51,4 +55,23 @@ public class MainActivity extends AppCompatActivity{
             }
         }
     }
+
+    class ExampleRunnable implements Runnable{
+        private int seconds;
+        ExampleRunnable(int seconds){
+            this.seconds = seconds;
+        }
+        @Override
+        public void run() {
+            for (int i = 0; i<seconds; i++){
+                Log.d(TAG, "startThread: " + i);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
 }
